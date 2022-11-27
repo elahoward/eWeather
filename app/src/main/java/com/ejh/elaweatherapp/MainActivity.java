@@ -3,6 +3,8 @@ package com.ejh.elaweatherapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,13 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class MainActivity extends AppCompatActivity {
     TextView date, temp, city, desc;
     private RequestQueue RQ;
-
+    RadioGroup rdoGroup;
+    RadioButton radioButton;
     ImageView image;
-    String ville= "Toronto";
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RQ= Volley.newRequestQueue(this);
-        date=findViewById(R.id.date);
         temp=findViewById(R.id.temp);
         city=findViewById(R.id.city);
-        desc=findViewById(R.id.desc);
-        afficher();
+        rdoGroup=findViewById(R.id.rdoGroup);
 
+        rdoGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged (RadioGroup group, int checkedId)
+            {
+                radioButton=findViewById(checkedId);
+                switch (radioButton.getId())
+                {
+                    case R.id.Imperial:
+                        url = "http://api.openweathermap.org/data/2.5/weather?q=Toronto&appId=8202c79f5d3d03e92863ebbf770b93d9&units=imperial";
+                        afficher();
+                        break;
+                    case R.id.Metric:
+                        url = "http://api.openweathermap.org/data/2.5/weather?q=Toronto&appId=8202c79f5d3d03e92863ebbf770b93d9&units=metric";
+                        afficher();
+                        break;
+                }
+            }
+        });
     }
 
     public void afficher (){
-
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=Toronto&appId=8202c79f5d3d03e92863ebbf770b93d9&units=metric";
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
             @Override
 
@@ -52,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject mainobject = response.getJSONObject("main");
                     JSONArray weatherarray = response.getJSONArray("weather");
                     Log.d("Tag", weatherarray.toString());
+                    Log.d("Tag", mainobject.toString());
+
                 }
                 catch(JSONException e) {
                     e.printStackTrace();
