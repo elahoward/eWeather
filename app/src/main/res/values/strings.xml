@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">elaWeatherApp</string>
+    <string name="temp">Temperature</string>
+    <string name="descripton">Description</string>
+    <string name="ville">Location</string>
+    <string name="date">Date</string>
+</resources>
