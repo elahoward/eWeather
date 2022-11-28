@@ -2,45 +2,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/image"
+    android:id="@+id/c"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/city"
+        android:id="@+id/viewdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toronto"
+        android:text="@string/descripton"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.371" />
+        app:layout_constraintTop_toBottomOf="@+id/viewimage"
+        app:layout_constraintVertical_bias="0.34" />
 
     <TextView
-        android:id="@+id/temp"
+        android:id="@+id/viewcity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ville"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewimage"
+        app:layout_constraintVertical_bias="0.272" />
+
+    <TextView
+        android:id="@+id/viewtemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Temps Logcat"
+        android:text="@string/temp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/viewimage"
         app:layout_constraintVertical_bias="0.118" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/viewimage"
         android:layout_width="217dp"
         android:layout_height="229dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133"
+        app:layout_constraintVertical_bias="0.201"
         app:srcCompat="@drawable/sun" />
 
     <RadioGroup
@@ -57,13 +70,26 @@
             android:id="@+id/Imperial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Imperial" />
+            android:text="Imperial (ºF)" />
 
         <RadioButton
             android:id="@+id/Metric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Metric" />
+            android:text="Metric (ºC)" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/viewdate"
+        android:layout_width="62dp"
+        android:layout_height="20dp"
+        android:text="@string/date"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.113" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

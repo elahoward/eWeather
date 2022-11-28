@@ -1,7 +1,7 @@
 package com.ejh.elaweatherapp;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,17 +15,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
-    TextView date, temp, city, desc;
+    TextView viewdate, viewtemp, viewcity, viewdesc;
     private RequestQueue RQ;
     RadioGroup rdoGroup;
     RadioButton radioButton;
-    ImageView image;
+    ImageView viewimage;
     String url;
 
     @Override
@@ -33,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RQ= Volley.newRequestQueue(this);
-        temp=findViewById(R.id.temp);
-        city=findViewById(R.id.city);
+        viewtemp=findViewById(R.id.viewtemp);
+        viewcity=findViewById(R.id.viewcity);
+        viewdesc=findViewById(R.id.viewdesc);
+        viewdate=findViewById(R.id.viewdate);
         rdoGroup=findViewById(R.id.rdoGroup);
 
         rdoGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
@@ -66,8 +71,27 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject mainobject = response.getJSONObject("main");
                     JSONArray weatherarray = response.getJSONArray("weather");
-                    Log.d("Tag", weatherarray.toString());
-                    Log.d("Tag", mainobject.toString());
+                   // Log.d("Tag", weatherarray.toString()) Log.d("Tag", mainobject.toString());
+                    JSONObject object = weatherarray.getJSONObject(0);
+                    int temp = (int)Math.round(mainobject.getDouble ("temp"));
+                    String temperature = String.valueOf("temp");
+                    String description = object.getString("description");
+                    String city = response.getString("name");
+                    String image = response.getString("icon");
+                    viewtemp.setText(temperature);
+                    viewdesc.setText(description);
+                    viewcity.setText(city);
+                    Calendar c =Calendar.getInstance();
+
+                    SimpleDateFormat s = new SimpleDateFormat(" EEEE, MM, DD");
+                    String dateformatted = s.format(c.getTime());
+                    viewdate.setText(dateformatted);
+
+                    //images
+                    String imageUri = "http://openweathermap.org/img/w" + image + "png";
+                    viewimage.findViewById(R.id.viewimage);
+                    Uri myUri= Uri.parse(imageUri);
+                    Picasso.with(MainActivity.this).load(myUri).resize(200, 200).into(viewimage);
 
                 }
                 catch(JSONException e) {
@@ -79,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
             }
         });
+        //ajouter elements à la queue à la fin
+        RQ= Volley.newRequestQueue(this);
         RQ.add(jsonObjectRequest);
 
         }
