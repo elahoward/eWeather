@@ -1,6 +1,5 @@
 package com.ejh.elaweatherapp;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -15,7 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,16 +81,16 @@ public class MainActivity extends AppCompatActivity {
                     viewcity.setText(city);
                     Calendar c =Calendar.getInstance();
 
-                    SimpleDateFormat s = new SimpleDateFormat(" EEEE, MM, DD");
+                    SimpleDateFormat s = new SimpleDateFormat(" EEEE, MM, dd");
                     String dateformatted = s.format(c.getTime());
                     viewdate.setText(dateformatted);
 
-                    //images
+                    /*images
                     String imageUri = "http://openweathermap.org/img/w" + image + "png";
                     viewimage.findViewById(R.id.viewimage);
                     Uri myUri= Uri.parse(imageUri);
                     Picasso.with(MainActivity.this).load(myUri).resize(200, 200).into(viewimage);
-
+                    */
                 }
                 catch(JSONException e) {
                     e.printStackTrace();
